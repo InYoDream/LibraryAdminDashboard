@@ -1,3 +1,13 @@
+
+//import com.mysql.cj.xdevapi.Statement;
+//import com.sun.jdi.connect.spi.Connection;
+import java.awt.HeadlessException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -101,8 +111,37 @@ public class LoginPage extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        String url="jdbc:mysql://localhost:3306/library?useSSL=false";
+        String mysqluser="root";
+        String mysqlpwd="deanmon1234";
+        String psswrd=new String(password.getPassword());
+        String username=user.getText();
+        String query=("select password from admin where user_id='"+username+"';");
+        try{
+//            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection conn=DriverManager.getConnection(url,mysqluser,mysqlpwd);
+            Statement stm = conn.createStatement();
+            ResultSet rs=stm.executeQuery(query);
+            if(rs.next()){
+                String realpswrd=rs.getString("password");
+                if(realpswrd.equals(psswrd)){
+                    Dashboard dsh=new Dashboard();
+                    dsh.setVisible(true);
+                    this.dispose();
+                }
+                else{
+                    JOptionPane.showMessageDialog(this,"Incorrect Credentials");
+                }
+}
+                else{
+                    JOptionPane.showMessageDialog(this,"Username does not exist");
+//                }
+            }
+        }
+        catch(HeadlessException | SQLException e){
+               JOptionPane.showMessageDialog(this,e.getMessage());
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    }
     /**
      * @param args the command line arguments
      */
