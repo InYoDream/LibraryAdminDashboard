@@ -3,23 +3,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 
-import java.sql.*;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.*;import java.sql.Connection;
-
 /**
  *
  * @author abhis
  */
-public class AvailableBooks extends javax.swing.JFrame {
+import java.sql.*;
+//import javax.swing.DefaultTableModel;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+public class StaffDetails extends javax.swing.JFrame {
 
     /**
-     * Creates new form AvailableBooks
+     * Creates new form StaffDetails
      */
-    public AvailableBooks() {
+    public StaffDetails() {
         initComponents();
-        setDefaultCloseOperation(AvailableBooks.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(StaffDetails.DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -33,8 +32,8 @@ public class AvailableBooks extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        Jbutton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -43,18 +42,10 @@ public class AvailableBooks extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Book ID", "Category", "Book Name", "Author", "Copies"
+                "Staff_ID", "Name", "Contact"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
-
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton1.setText("Get");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton2.setText("Back");
@@ -64,65 +55,98 @@ public class AvailableBooks extends javax.swing.JFrame {
             }
         });
 
+        Jbutton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        Jbutton1.setText("GET");
+        Jbutton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Jbutton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(104, 104, 104)
-                .addComponent(jButton1)
-                .addGap(56, 56, 56)
+                .addGap(100, 100, 100)
+                .addComponent(Jbutton1)
+                .addGap(76, 76, 76)
                 .addComponent(jButton2)
-                .addContainerGap(108, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
-                .addGap(38, 38, 38)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addGap(31, 31, 31))
+                    .addComponent(jButton2)
+                    .addComponent(Jbutton1))
+                .addGap(0, 16, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        //GET BUTTON
+    
+    
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void Jbutton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Jbutton1ActionPerformed
+        // TODO add your handling code here:
         DefaultTableModel model=(DefaultTableModel)jTable1.getModel();
         String url="jdbc:mysql://localhost/library";
         String user="root";
         String pwd="deanmon1234";
-        String query="select * from books;";
+        String query="select * from staffs";
         try{
             Connection conn=DriverManager.getConnection(url,user,pwd);
             Statement stm=conn.createStatement();
             ResultSet rs=stm.executeQuery(query);
             while(rs.next()){
-                String bookid=rs.getString("book_id");
-                String category=rs.getString("category");
+                String id=rs.getString("staff_id");
                 String name=rs.getString("name");
-                String author=rs.getString("author");
-                int copies=rs.getInt("copies");
-                model.addRow(new Object[] {bookid,category,name,author,copies});
+                String contact=rs.getString("contact");
+                model.addRow(new Object[] {id,name,contact});
             }
             rs.close();
             stm.close();
         }
         catch(Exception e){
-            JOptionPane.showMessageDialog(this,e.getMessage());
+        JOptionPane.showMessageDialog(this,e.getMessage());
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_Jbutton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        //back button
-        this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
-
+//    private void b1ActionPerformed(java.awt.event.ActionEvent evt){
+//        DefaultTableModel model=(DefaultTableModel)jTable1.getModel();
+//        String url="jdbc:mysql://localhost/library";
+//        String user="root";
+//        String pwd="deanmon1234";
+//        String query="select * from staffs";
+//        try{
+//            Connection conn=DriverManager.getConnection(url,user,pwd);
+//            Statement stm=conn.createStatement();
+//            ResultSet rs=stm.executeQuery(query);
+//            while(rs.next()){
+//                String id=rs.getString("staff_id");
+//                String name=rs.getString("name");
+//                int contact=rs.getInt("contact");
+//                model.addRow(new Object[] {id,name,contact});
+//            }
+//            rs.close();
+//            stm.close();
+//        }
+//        catch(Exception e){
+//        JOptionPane.showMessageDialog(this,e.getMessage());
+//        }
+//    }
+    
     /**
      * @param args the command line arguments
      */
@@ -140,26 +164,26 @@ public class AvailableBooks extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AvailableBooks.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StaffDetails.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AvailableBooks.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StaffDetails.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AvailableBooks.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StaffDetails.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AvailableBooks.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StaffDetails.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AvailableBooks().setVisible(true);
+                new StaffDetails().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton Jbutton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
