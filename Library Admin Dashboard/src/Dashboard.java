@@ -140,6 +140,8 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        AddStaff as=new AddStaff();
+        as.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void booksavailableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_booksavailableActionPerformed
